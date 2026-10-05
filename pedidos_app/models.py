@@ -63,7 +63,7 @@ class Producto (models.Model):
 # ------------- Clase Cliente --------------
 
 
-class cliente (models.Model):
+class Cliente (models.Model):
     name = models.CharField(max_length=120)
 
     correo = models.EmailField( unique = True)
@@ -77,3 +77,30 @@ class cliente (models.Model):
 
     def __str__(self):
         return f"{self.name} {self.correo}"
+
+class Pedido(models.Model):
+    fecha = models.DateField()
+    pagado = models.BooleanField()
+
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='cliente')
+
+    class Meta:
+        verbose_name_plural = 'Pedidos'
+        ordering = ['fecha']
+
+    def __str__(self):
+        return f"{self.id}: {self.fecha}"
+
+class Item (models.Model):
+    cantidad = models.PositiveIntegerField()
+    precio_unitario = models.PositiveIntegerField()
+
+    pedido = models.ForeignKey(Pedido,
+                               on_delete=models.CASCADE,
+                               related_name='pedido'
+                               )
+
+    producto = models.ForeignKey(Producto,
+                                 on_delete=models.PROTECT,
+                                 related_name='producto'
+                                 )

@@ -1,7 +1,11 @@
-# SECURITY WARNING: keep the secret key used in production secret!
-from pipes import Template
 
-from django.conf.global_settings import TEMPLATES
+
+import os
+
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+TEMPLATES_DIR = os.path.join(BASE_DIR / 'templates')
 
 SECRET_KEY = 'django-insecure-zh+a#q@my7^hi+gga03k1&+s!9plqj%r2vg73ei3ie7lm&br9^'
 
@@ -60,7 +64,7 @@ WSGI_APPLICATION = 'u2_proyecto1.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':'u2_p1_bd',
+        'NAME':'u2_p1_db',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
